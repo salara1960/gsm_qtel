@@ -1,0 +1,31 @@
+Firmware update for Quectel M10ER01..  and M12ER01..
+
+Content:
+
+fw/M10ER01A21W32_BETA1128A.bin	- firmware binary file for module M10ER01..
+fw/M12ER01A20W32_BETA1215A.bin	- firmware binary file for module M12ER01..
+drv/k16/			- folder for compile new gsm driver (k16_mod.ko) for Altera Cyclon chipset
+drv/tmr/			- folder for compile new timer driver (tmr_mod.ko) for Altera Cyclon chipset
+src/				- firmware update program source files
+README.md
+
+Use:
+
+1. Stop process elgatos : /vrem/gsmctrl stop
+2. Compile new drivers (k16_mod.ko, tmr_mod.ko) :
+    make
+    make install
+3. Remove from memory old drivers k16_mod.ko, tmr_mod.ko : start script /vrem/close-all.sh
+4. Load to memory new drivers : start scrip /vrem/open-all.sh
+5. Start firmware update program with parameters :
+    ./writer CHAN FILENAME FLAG
+where	CHAN - channel number (1..32),
+	FILENAME - new firmware binary file (M10ER01A21W32_BETA1128A.bin or M12ER01A20W32_BETA1215A.bin),
+	FLAG - print level (dump)
+example for M10 channel 17 :
+    ./writer 17 M10ER01A21W32_BETA1128A.bin dump
+example for M12 channel 20 :
+    ./writer 20 M12ER01A20W32_BETA1215A.bin dump
+
+P.S.
+    Time for update procedure ~ 400 sec.
